@@ -5,6 +5,10 @@ En este apartado se realizarán algunos ejemplos de código de R con el que inte
 
 <code>c(4,5,6)</code>
 
+```R
+c(4,5,6)
+```
+
 <code>a <- c(4,5,6)</code>
 
 <code>length(a)</code>
