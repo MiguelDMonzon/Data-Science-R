@@ -5,9 +5,9 @@ En este apartado se realizarán algunos ejemplos de código de R con el que inte
 
 <code>c(4,5,6)</code>
 
-<code>a <- c(4,5,6) </code>
+<code>a <- c(4,5,6)</code>
 
-<code> length(a)</code>
+<code>length(a)</code>
 
 <code>c(4, "Hola")</code>
 
@@ -19,11 +19,11 @@ En este apartado se realizarán algunos ejemplos de código de R con el que inte
 
 <code>b <- 31:40</code>
 
-<code> a + b</code>
+<code>a + b</code>
 
-<code> b <- 1:5 </code>
+<code>b <- 1:5</code>
 
-<code> a + b </code>
+<code>a + b</code>
 
 ###Secuencias y repeticiones###
 <code>seq(1, 10, 1)</code>
