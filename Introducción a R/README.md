@@ -110,7 +110,7 @@ A partir de los dos vectores anteriores:
     * -1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1.0
 
 7. Crear el vector
-(x_{1} + 2x 2 − x 3 , x 2 + 2x 3 − x 4 , ..., x n−2 + 2x n−1 − x n )
+(x<sub>1</sub> + 2x<sub>2</sub> − x<sub>3</sub>, x<sub>2</sub> + 2x<sub>3</sub> − x<sub>4</sub>, ..., x<sub>n−2</sub> + 2x<sub>n−1</sub> − x<sub>n</sub>)
 
     Pista: tiene tamaño n − 2.
 
