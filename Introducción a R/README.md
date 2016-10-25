@@ -3,12 +3,14 @@ En este apartado se realizarán algunos ejemplos de código de R con el que inte
 
 ## Vectores ##
 
+Para crear un vector, se utiliza el comando c(), pasándole los elementos que conforman el vector:
 ```{r}
 c(4,5,6)
 -
 [1] 4 5 6
 ```
 
+El vector se puede almacenar en una variable, para luego consultarla. Por ejemplo, se puede consultar su longitud:
 ```{r}
 a <- c(4,5,6)
 length(a)
@@ -16,24 +18,28 @@ length(a)
 [1] 3
 ```
 
+Los vectores pueden definirse con tipos diferentes, pero R tratará de realizar conversiones para que queden del mismo tipo. Primero intentará transformar "Hola" a tipo entero, pero como no puede, intenta transformar 4 a tipo cadena, consiguiéndolo:
 ```{r}
 c(4, "Hola")
 -
 [1] "4"    "Hola"
 ```
 
+Otra forma de crear un vector es mediante vector(), especificándole el tipo del vector y el número de elementos. Si se desea un vector numérico de 10 elementos:
 ```{r}
 vector("numeric", 10)
 -
 [1] 0 0 0 0 0 0 0 0 0 0
 ```
 
+Otra forma más de crear un vector es escribiendo su tipo y la longitud que se desea. Por ejemplo, para un vector de 5 caracteres:
 ```{r}
 character(5)
 -
 [1] "" "" "" "" ""
 ```
 
+R admite operaciones entre vectores, actuando elemento a elemento. Por ejemplo, para realizar la suma entre dos vectores numéricos:
 ```{r}
 a <- 1:10
 b <- 31:40
@@ -42,6 +48,7 @@ a + b
 [1] 32 34 36 38 40 42 44 46 48 50
 ```
 
+En el ejemplo anterior, los dos vectores son del mismo tamaño. R también permite la suma entre dos vectores de diferente tamaño, haciendo que el vector más pequeño se repita de nuevo hasta cubrir la longitud del vector más grande:
 ```{r}
 a <- 1:10
 b <- 1:5
@@ -52,18 +59,22 @@ a + b
 
 ###Secuencias y repeticiones###
 
+Para crear secuencias, se utiliza el comando seq(). A este comando se le pasa por parámetro el valor inicial, el valor final y el paso(step) o variación entre cada uno de los elementos hasta llegar al valor final.
+Por ejemplo, para crear una secuencia del 1 al 10 sumando de 1 en 1:
 ```{r}
 seq(1, 10, 1)
 -
 [1]  1  2  3  4  5  6  7  8  9 10
 ```
 
+Si en cambio se desea que sumen de 2 en 2:
 ```{r}
 seq(1, 10, 2)
 -
 [1] 1 3 5 7 9
 ```
 
+También se puede hacer que el paso sea un número real y no entero:
 ```{r}
 seq(1, 10, 0.5)
 -
@@ -72,6 +83,8 @@ seq(1, 10, 0.5)
 [17]  9.0  9.5 10.0
 ```
 
+Otra forma de crear una secuencia, es declarar los valores inicial y final, y también el número de elementos que se desea que tenga esa secuencia.
+Si se desea una secuencia de números entre el 1 y el 10, y que genere 100 elementos:
 ```{r}
 seq(1, 10, length.out=100)
 -
@@ -90,6 +103,8 @@ seq(1, 10, length.out=100)
  [93]  9.363636  9.454545  9.545455  9.636364
  [97]  9.727273  9.818182  9.909091 10.000000
 ```
+
+Se pueden realizar repeticiones de arrays mediante el uso del comando rep(). Se le pasa el vector a repetir junto el número de repeticiones deseadas. Para repetir 10 veces el array (1,2,3,4):
 
 ```{r}
 rep(c(1, 2, 3, 4), 10)
