@@ -39,7 +39,7 @@ character(5)
 [1] "" "" "" "" ""
 ```
 
-R admite operaciones entre vectores, actuando elemento a elemento. Por ejemplo, para realizar la suma entre dos vectores numéricos:
+R admite operaciones entre vectores, actuando elemento a elemento. Por ejemplo, para realizar la suma entre dos vectores numéricos, uno que abarca entre el 1 y el 10 y otro entre el 31 y el 40 es:
 ```{r}
 a <- 1:10
 b <- 31:40
@@ -115,6 +115,7 @@ rep(c(1, 2, 3, 4), 10)
 
 ###Selección de elementos e indexación###
 
+Una vez definido el vector, se pueden seleccionar elementos del mismo. Una forma es mediante el índice de ese vector, empezando desde el primer elemento con índice 1. Por lo tanto, para obtener el primer elemento del vector:
 ```{r}
 a <- 40:50
 a[1]
@@ -122,30 +123,36 @@ a[1]
 [1] 40
 ```
 
+También se pueden seleccionar un conjunto de elementos del vector, mediante un conjunto de índices. En el ejemplo, se seleccionan los cinco primeros elementos del vector anterior, de la forma indiceMenor:indiceMayor, abarcando el rango de índices [1..5]:
 ```{r}
 a[1:5]
 -
 [1] 40 41 42 43 44
 ```
 
+En vez de un rango, se puede especificar un vector de indices, el cual no tiene por qué ser ordenado, para seleccionar los elementos correspondientes a esos índices:
 ```{r}
 a[ c(4,1,7,7) ]
 -
 [1] 43 40 46 46
 ```
 
+Otra forma de selección de elementos de un vector es la aplicación sobre él de un vector lógico (de valores booleanos, True o False). Así, se consigue seleccionar únicamente los elementos que corresponden a valores True.
 ```{r}
 a[ c(T, F, T, T, T, T, F, F, T ,T) ]
 -
 [1] 40 42 43 44 45 48 49 50
 ```
 
+Si se quisiese obtener, por ejemplo, los elementos de a mayores de 45, es necesario aplicar el vector lógico para no mostrar los elementos que no cumplan la condición. Y para obtener ese vector lógico, basta con realizar la condición a > 45.
+Tras ejecutar ```a > 45``` se obtiene el resultado de preguntar a cada uno de los elementos de a si es mayor que 45, de ahí como resultado el vector lógico a aplicar:
 ```{r}
 a[a > 45]
 -
 [1] 46 47 48 49 50
 ```
 
+Por último, se puede modificar el valor de un elemento del vector, asignándole al elemento un valor nuevo.
 ```{r}
 a[2] <- 5
 a
@@ -163,7 +170,7 @@ y <- sample(1:1000, n, replace=T)
 
 A partir de los dos vectores anteriores:
 
-1. Calcular el el máximo y el mı́nimo de los vectores x e y.
+1. Calcular el máximo y el mı́nimo de los vectores x e y.
 
 2. Calcular la media de los vectores x e y. Antes de calcularla, ¿que valor esperarı́as?.
 
