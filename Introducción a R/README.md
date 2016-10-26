@@ -19,11 +19,10 @@ El vector se puede almacenar en una variable, para luego consultarla. Por ejempl
 
 ```R
 a <- c(4,5,6)
-length(a)
+print(length(a))
 ```
 
-
-3
+    [1] 3
 
 
 Los vectores pueden definirse con tipos diferentes, pero R tratará de realizar conversiones para que queden del mismo tipo. Primero intentará transformar "Hola" a tipo entero, pero como no puede, intenta transformar 4 a tipo cadena, consiguiéndolo:
@@ -157,11 +156,10 @@ Una vez definido el vector, se pueden seleccionar elementos del mismo. Una forma
 
 ```R
 a <- 40:50
-a[1]
+print(a[1])
 ```
 
-
-40
+    [1] 40
 
 
 También se pueden seleccionar un conjunto de elementos del vector, mediante un conjunto de índices. En el ejemplo, se seleccionan los cinco primeros elementos del vector anterior, de la forma indiceMenor:indiceMayor, abarcando el rango de índices [1..5]:
