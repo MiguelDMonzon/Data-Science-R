@@ -282,7 +282,7 @@ seq(-1, 1, 0.2)
 
 Crear el vector
 
-    (x<sub>1</sub> + 2x<sub>2</sub> − x<sub>3</sub>, x<sub>2</sub> + 2x<sub>3</sub> − x<sub>4</sub>, ..., x<sub>n−2</sub> + 2x<sub>n−1</sub> − x<sub>n</sub>)
+   (x<sub>1</sub> + 2x<sub>2</sub> − x<sub>3</sub>, x<sub>2</sub> + 2x<sub>3</sub> − x<sub>4</sub>, ..., x<sub>n−2</sub> + 2x<sub>n−1</sub> − x<sub>n</sub>)
 
     Pista: tiene tamaño n - 2.
 
