@@ -439,10 +439,20 @@ print(tapply(renta, fsexo, FUN=mean))
 
 # Ejercicio #
 
-Escribir una función mediaColumnas que calcule la media de las columnas de un data.frame que se pasa como argumento usando un bucle y las devuelva en un vector. La función debe comprobar que el argumento es un data.frame.
+1. Escribir una función mediaColumnas que calcule la media de las columnas de un data.frame que se pasa como argumento usando un bucle y las devuelva en un vector. La función debe comprobar que el argumento es un data.frame.
 
+2. Cargar el fichero random.data en R.
+
+3. Utilizar la función anterior para calcular la media de las columnas de los datos del fichero.
+
+4. Hacer la misma operación anterior pero ahora con la función sapply.
+
+5. Comprobar que los resultados de los dos procedimientos anteriores son el mismo, y coincide también con el resultado de usar la función colMeans.
+
+6. Comparar el tiempo de ejecución de los tres procedimientos anteriores.
 
 ```R
+# Apartado 1
 mediaColumnas <- function(df){
     if(!is.data.frame(df)){
         return(NA)
@@ -459,10 +469,8 @@ mediaColumnas <- function(df){
 
 ```
 
-Cargar el fichero random.data en R.
-
-
 ```R
+# Apartado 2
 # La carga sería la siguiente línea
 # df <- read.table("random.data")
 # Puesto que está tardando mucho en cargarla, se crea un data frame de datos equivalente
@@ -470,24 +478,18 @@ df <- as.data.frame(matrix(rnorm(1000000), 10, 100000))
 #print(head(df))
 ```
 
-Utilizar la función anterior para calcular la media de las columnas de los datos del fichero.
-
-
 ```R
+# Apartado 3
 media_columnas_propia <- mediaColumnas(df)
 ```
 
-Hacer la misma operación anterior pero ahora con la función sapply.
-
-
 ```R
+# Apartado 4
 media_columnas_sapply <- sapply(df, mean)
 ```
 
-Comprobar que los resultados de los dos procedimientos anteriores son el mismo, y coincide también con el resultado de usar la función colMeans.
-
-
 ```R
+# Apartado 5
 # Una forma sería comparando ambos resultados, pero eso devolvería una matriz muy grande que no conviene mostrar.
 # Además, de esa forma para asegurarse hay que mirar de 1 en 1 todas los resultados esperando que sean True
 # print(media_columnas_propia == colMeans(df))
@@ -510,10 +512,8 @@ sum(media_columnas_propia - colMeans(df))
 -3.17637355220363e-21
 
 
-Comparar el tiempo de ejecución de los tres procedimientos anteriores.
-
-
 ```R
+# Apartado 6
 print(system.time(media_columnas_propia <- mediaColumnas(df)))
 ```
 

@@ -906,7 +906,8 @@ Pista: Mirar la documentación de la función paste y usarla para generar el vec
 
 
 ```R
-#Retorna nombres de variables de mtcars por defecto
+# Apartado 1
+# Retorna nombres de variables de mtcars por defecto
 colnames(mtcars)[1] <- "mpg"
 colnames(mtcars)[2] <- "cyl"
 print(head(mtcars))
@@ -923,6 +924,7 @@ print(head(mtcars))
 
 
 ```R
+# Apartado 2
 print(nrow(mtcars))
 print(ncol(mtcars))
 ```
@@ -933,6 +935,7 @@ print(ncol(mtcars))
 
 
 ```R
+# Apartado 3
 df <- mtcars[mtcars$mpg < 15,]
 print(df)
 ```
@@ -947,6 +950,7 @@ print(df)
 
 
 ```R
+# Apartado 4
 df <- df[order(df$disp),]
 print(df)
 ```
@@ -961,6 +965,7 @@ print(df)
 
 
 ```R
+# Apartado 5
 print(mean(df$gear))
 ```
 
@@ -969,6 +974,7 @@ print(mean(df$gear))
 
 
 ```R
+# Apartado 6
 numVariables <- length(names(df))
 nuevosNombres <- paste("var", 1:numVariables, sep="")
 names(df) <- nuevosNombres

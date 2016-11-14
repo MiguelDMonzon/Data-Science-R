@@ -226,25 +226,42 @@ y <- sample(1:1000, n, replace=T)
 
 A partir de los dos vectores anteriores:
 
-Calcular el máximo y el mı́nimo de los vectores x e y.
+1. Calcular el máximo y el mı́nimo de los vectores x e y.
+
+2. Calcular la media de los vectores x e y. Antes de calcularla, ¿que valor esperarı́as?.
+
+3. Calcula el número de elementos de x divisibles por 2 (el operador módulo es %%).
+
+4. Ordenar los vectores, primero usando la función order() y luego la función sort().
+
+5. Seleccionar los valores de "y" menores que 600.
+
+6. Crear las secuencias (funciones rep y seq):
+
+    * 1 2 3 4 5 6 7 8 9 10.
+    * 1 2 3 4 1 2 3 4 1 2 3 4.
+    * -1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1.0
+
+7. Crear el vector (x<sub>1</sub> + 2x<sub>2</sub> − x<sub>3</sub>, x<sub>2</sub> + 2x<sub>3</sub> − x<sub>4</sub>, ..., x<sub>n−2</sub> + 2x<sub>n−1</sub> − x<sub>n</sub>). Pista: tiene tamaño n - 2.
+
+
 
 ```R
+# Apartado 1
 max(x)
 min(x)
 max(y)
 min(y)
 ```
 
-Calcular la media de los vectores x e y. Antes de calcularla, ¿que valor esperarı́as?.
-
 ```R
+# Apartado 2
 mean(x)
 mean(y)
 ```
 
-Calcula el número de elementos de x divisibles por 2 (el operador módulo es %%).
-
 ```R
+# Apartado 3
 length(x [ x %% 2 == 0 ])
 
 # Otra solución
@@ -253,37 +270,28 @@ sum(x%%2==0)
 
 ```
 
-Ordenar los vectores, primero usando la función order() y luego la función sort().
-
 ```R
+# Apartado 4
 x[order(x)] # Ya que order devuelve los indices ordenados, no los valores
 y[order(y)]
 sort(x)
 sort(y)
 ```
 
-Seleccionar los valores de "y" menores que 600.
-
 ```R
+# Apartado 5
 y[y<600]
 ```
 
-
-Crear las secuencias (funciones rep y seq):
-
-* 1 2 3 4 5 6 7 8 9 10.
-* 1 2 3 4 1 2 3 4 1 2 3 4.
-* -1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1.0
-
 ```R
+# Apartado 6
 seq(1, 10, 1)
 rep(seq(1, 4, 1), 3)
 seq(-1, 1, 0.2)
 ```
 
-Crear el vector (x<sub>1</sub> + 2x<sub>2</sub> − x<sub>3</sub>, x<sub>2</sub> + 2x<sub>3</sub> − x<sub>4</sub>, ..., x<sub>n−2</sub> + 2x<sub>n−1</sub> − x<sub>n</sub>). Pista: tiene tamaño n - 2.
-
 ```R
+# Apartado 7
 a <- x[1:248]
 b <- x[2:249]
 c <- x[3: 250]
