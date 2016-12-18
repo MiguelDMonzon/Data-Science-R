@@ -1,0 +1,772 @@
+
+# Muestreos aleatorios #
+
+Para obtener el resumen estadístico de un objeto, se utiliza la función summary(). Este resumen ofrecerá valores para el mínimo, máximo, media, mediana y cuartiles para los elementos numéricos, y la cantidad de elementos por clase en el caso de factores.
+
+
+```R
+summary(iris)
+```
+
+
+      Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+     Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+     1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+     Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+     Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+     3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+     Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+           Species  
+     setosa    :50  
+     versicolor:50  
+     virginica :50  
+                    
+                    
+                    
+
+
+Para generar muestreos se utiliza la función sample(). Para generar un muestreo aleatorio de los números del 1 al 10, sin reemplazamiento (por defecto).
+
+
+```R
+print(sample(1:10))
+```
+
+     [1]  9  8 10  4  6  5  2  3  1  7
+
+
+Se puede especificar el tamaño del muestreo (se continúa sin reemplazamiento, es decir, no se repiten elementos).
+
+
+```R
+print(sample(1:10, 5))
+```
+
+    [1] 4 9 8 1 6
+
+
+Si se intenta realizar muestreos sin reemplazamientos más grandes que la muestra, no funciona:
+
+
+```R
+print(sample(1:10, 15))
+```
+
+
+    Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+    Traceback:
+
+
+    1. print(sample(1:10, 15))
+
+    2. sample(1:10, 15)
+
+    3. sample.int(length(x), size, replace, prob)
+
+
+En cambio si se establece el muestreo con reemplazamiento, se indica que los elementos ya tomados para el muestreo se pueden volver a generar.
+
+
+```R
+print(sample(1:10, 15, replace = T))
+```
+
+     [1] 5 8 1 2 8 5 5 6 6 8 4 8 6 1 1
+
+
+Por ejemplo, para simular el lanzamiento de una moneda a cara o cruz cien veces:
+
+
+```R
+moneda <- sample(1:2, 100, replace = T)
+print(moneda)
+```
+
+      [1] 1 2 2 2 2 2 2 2 1 1 1 2 1 2 2 2 1 2 2 1 2 1 1 1 2 2 2 1 1 1 2 1 2 2 1 1 1
+     [38] 2 1 1 2 2 1 1 2 2 1 1 2 2 2 2 1 1 1 1 1 2 1 2 1 1 1 2 1 1 2 1 1 2 2 2 1 2
+     [75] 2 1 1 1 2 2 2 1 2 2 1 1 1 2 1 1 1 1 1 1 2 2 2 2 2 2
+
+
+Para contar el número de elementos, se utiliza la función table():
+
+
+```R
+table(moneda)
+```
+
+
+    moneda
+     1  2 
+    50 50 
+
+
+Si probamos otra vez, puede dar otro resultado (debido a la generación aleatoria del muestreo):
+
+
+```R
+moneda <- sample(1:2, 100, replace = T)
+table(moneda)
+```
+
+
+    moneda
+     1  2 
+    49 51 
+
+
+La muestra no tiene por que estar formada por números, también puede estar formada por cadena de caracteres:
+
+
+```R
+sexo <- sample(c("Hombre", "Mujer"), 100, replace = T)
+table(sexo)
+```
+
+
+    sexo
+    Hombre  Mujer 
+        46     54 
+
+
+# Distribuciones de probabilidad #
+
+Para cada una de ellas, está disponible:
+* La función de densidad (pdf), añadiendo d.
+* La función de distribución (cdf), añadiendo p.
+* La función de distribución inversa, añadiendo q.
+* Generación de números pseudo-aleatorios, añadiendo r.
+
+Las más comunes son: beta, binom, cauchy, gamma, lnorm, norm, pois, t, y unif. Para generar una cantidad de números aleatorios de distribución uniforme, de 100 elementos, y entre 0 y 1, con la misma probabilidad:
+
+
+```R
+dist_unif <- runif(100, min = 0, max = 1)
+print(dist_unif)
+```
+
+      [1] 0.784048982 0.241593626 0.552169896 0.355471143 0.042436796 0.423081700
+      [7] 0.491659624 0.248430017 0.577437015 0.730951896 0.747785163 0.249901089
+     [13] 0.487237511 0.153564378 0.148077872 0.147741087 0.313121253 0.062474749
+     [19] 0.363724140 0.437828624 0.719443502 0.772213789 0.208390108 0.043174526
+     [25] 0.965109463 0.542172565 0.931774558 0.100831712 0.287034865 0.583103089
+     [31] 0.047197343 0.306687576 0.881912915 0.767827236 0.108525590 0.704732196
+     [37] 0.162852580 0.645116860 0.381208569 0.518857738 0.921301065 0.913187544
+     [43] 0.712002891 0.406988135 0.688494012 0.698780173 0.109936355 0.174516368
+     [49] 0.969388547 0.751444440 0.307400535 0.079984041 0.110553296 0.891106015
+     [55] 0.482310349 0.528318262 0.831926732 0.443429460 0.126390006 0.726033259
+     [61] 0.395398677 0.269385550 0.483778858 0.024655207 0.093567208 0.114372960
+     [67] 0.283310741 0.452113992 0.658610244 0.011046217 0.007920741 0.549461117
+     [73] 0.558096990 0.954405888 0.246547701 0.248077768 0.533071030 0.251859513
+     [79] 0.782061616 0.774189938 0.570952217 0.369473705 0.873777115 0.192149200
+     [85] 0.230696469 0.993332917 0.698324662 0.944672882 0.223081748 0.367806653
+     [91] 0.315814798 0.175465229 0.008954083 0.139429212 0.096999211 0.143852209
+     [97] 0.274465923 0.690144671 0.158827162 0.622516941
+
+
+Si se quiere acceder al valor que corresponde al número 3 dentro de la función de densidad normal:
+
+
+```R
+print(dnorm(3))
+```
+
+    [1] 0.004431848
+
+
+La distribución normal abarca probabilidades entre dos extremos, así que si se realiza una secuencia entre ellos con todas las probabilidades que conforman la curva de la distribución normal, se obtienen los valores de ésta:
+
+
+```R
+seq_prob_normal <- dnorm(seq(-3,3, by=0.1))
+print(seq_prob_normal)
+plot(seq_prob_normal)
+```
+
+     [1] 0.004431848 0.005952532 0.007915452 0.010420935 0.013582969 0.017528300
+     [7] 0.022394530 0.028327038 0.035474593 0.043983596 0.053990967 0.065615815
+    [13] 0.078950158 0.094049077 0.110920835 0.129517596 0.149727466 0.171368592
+    [19] 0.194186055 0.217852177 0.241970725 0.266085250 0.289691553 0.312253933
+    [25] 0.333224603 0.352065327 0.368270140 0.381387815 0.391042694 0.396952547
+    [31] 0.398942280 0.396952547 0.391042694 0.381387815 0.368270140 0.352065327
+    [37] 0.333224603 0.312253933 0.289691553 0.266085250 0.241970725 0.217852177
+    [43] 0.194186055 0.171368592 0.149727466 0.129517596 0.110920835 0.094049077
+    [49] 0.078950158 0.065615815 0.053990967 0.043983596 0.035474593 0.028327038
+    [55] 0.022394530 0.017528300 0.013582969 0.010420935 0.007915452 0.005952532
+    [61] 0.004431848
+
+
+
+![png](output_25_1.png)
+
+
+# Gráficos #
+
+Una de las funciones principales para realizar gráficos en R es plot(). Dependiendo de los argumentos que se le pase a esta función, ofrecerá distintos tipos de gráficos.
+
+La forma con un argumento, plot(x), produce:
+* Factor: diagrama de barras.
+* Vector numérico: gráfico de sus elementos sobre el ı́ndice.
+* Matrix: diagrama de dispersión de la segunda columna sobre la primera.
+* Data frame: diagramas de dispersión de todos los pares de variables.
+
+La forma con dos argumentos, plot(x,y), produce:
+* Vectores numéricos: gráfico de dispersión de y sobre x.
+* "x" es un factor, e "y" es un vector numérico: diagrama de cajas de "y" para cada factor de "x".
+
+Para empezar, se va a crear un grafico de dispersión de la variable "mpg" del dataset mtcars, donde la x es el índice de cada uno de los elementos:
+
+
+```R
+### Adicional:
+### La libreria repr es la encargada de representar los objetos de R
+### Para que no queden gráficas tan grandes como en el apartado anterior
+### se modifica la anchura y altura de las nuevas gráficas.
+library(repr)
+options(repr.plot.width=4, repr.plot.height=4)
+plot(mtcars$mpg)
+```
+
+
+![png](output_29_0.png)
+
+
+Si se desea pintar el número de species diferentes de flores en el dataset iris:
+
+
+```R
+plot(iris$Species)
+table(iris$Species)
+```
+
+
+    
+        setosa versicolor  virginica 
+            50         50         50 
+
+
+
+![png](output_31_1.png)
+
+
+Ahora se va a generar una muestra de lanzamientos de moneda a cara o cruz y se va a realizar un gráfico.
+
+
+```R
+moneda <- sample(1:2, 1000, replace = T)
+plot(moneda)
+```
+
+
+![png](output_33_0.png)
+
+
+Como se observa, este gráfico no da mucha información. Lo que realmente se quiere saber es cual de los dos ha salido más veces. Por lo tanto para obtener la cuenta de ambas posibilidades hay que transformarlo a factor:
+
+
+```R
+plot(factor(moneda))
+```
+
+
+![png](output_35_0.png)
+
+
+Si se desea observar el "mpg" de los coches del dataset mtcars sobre el peso de cada uno:
+
+
+```R
+plot(mtcars$mpg, mtcars$wt)
+```
+
+
+![png](output_37_0.png)
+
+
+Si se pasa como primer parámetro un factor y segundo un vector numérico, mostrará una representación gráfica de los estadísticos del vector numérico sobre cada uno de los valores del factor. Esta representación gráfica es el diagrama de caja y bigotes, que muestra los cuartiles y los valores máximos y mínimos, entre otros. Nótese que también representa un outlier.
+
+
+```R
+plot(iris$Species, iris$Sepal.Length)
+```
+
+
+![png](output_39_0.png)
+
+
+Si se le pasa directamente el dataframe iris (excepto última columna "Species"), muestra diagramas de dispersión para cada par de atributos de ese dataframe.
+
+
+```R
+plot(iris[,-ncol(iris)])
+```
+
+
+![png](output_41_0.png)
+
+
+Existen otras funciones de alto nivel:
+* Gráficos cuantil-cuantil, que sirven para comparar dos distribuciones:
+    * qqnorm(x), compara una muestra con la distribución normal.
+    * qqline(x), añade una lı́nea de referencia.
+    * qqplot(x,y), compara dos muestras x e y.
+* Histogramas: representa el vector numérico x en forma de barras, hist(x).
+* Gráficos 3D:
+    * image(x,y,z), rejilla de rectángulos con colores que se corresponden a los valores en z (heatmap).
+    * contour(x,y,z), curvas de nivel de z.
+    * persp(x,y,z), superficie 3D de z sobre el plano x-y.
+* Diagramas de cajas y “bigotes”, boxplot(x).
+* Curvas de funciones, curve(expr).
+
+Para mostrar las frecuencias de los valores de los elementos, dentro de un conjunto de intervalos, se utiliza el histograma:
+
+
+```R
+hist(mtcars$mpg)
+```
+
+
+![png](output_44_0.png)
+
+
+Se puede generar un muestreo aleatorio de números siguiendo la distrubución uniforme, y mostrar sus frecuencias, de manera que el histograma debería representar barras de tamaño similar:
+
+
+```R
+u <- runif(10000)
+hist(u)
+```
+
+
+![png](output_46_0.png)
+
+
+Otro ejemplo, se va a lanzar un dado 100 veces y se va a observar el número de veces que cae en cada uno de los posibles números (del 1 al 6). Para observar sus frecuencias se vuelve a utilizar el histograma, pero indicándole que los cortes se hagan en los números 1, 2, 3, 4, 5, 6 (o 1:6).
+
+
+```R
+dado <- sample(1: 6, 100, replace = T)
+hist(dado, breaks = 0:6)
+```
+
+
+![png](output_48_0.png)
+
+
+Para mostrar curvas de funciones, se utiliza la función curve() pasándole la expresión que se desea. Esta función generará valores y mostrará la gráfica que representan. Se puede establecer los límites de esa función (en este caso de -4 a 4).
+
+
+```R
+curve(sin, -4, 4)
+```
+
+
+![png](output_50_0.png)
+
+
+También existen funciones de bajo nivel, que no añaden un gráfico nuevo, sino que se añaden al gráfico ya existente. Algunos de ellos son:
+* points(x,y): Puntos con coordenadas (x,y).
+* lines(x,y): Linea que pasa por todos los puntos (x,y).
+* abline(a,b): Recta con pendiente a y ordenada b.
+* abline(h=y): Recta horizontal en el punto y.
+* abline(v=x): Recta vertical en el punto x.
+* polygon(x,y): Polı́gono cuyos vértices son los elementos de (x,y).
+* text(x,y,lab): Texto en las coordenadas (x,y).
+* legend(pos,leg,...): Leyenda en la posición especificada.
+* title(main,sub): Tı́tulo principal y subtı́tulo.
+* axis(lado,...): Eje en el lado indicado por argumento, de 1 a 4.
+
+
+```R
+curve(sin, -4, 4)
+abline(h=0)
+```
+
+
+![png](output_52_0.png)
+
+
+# Ejercicio #
+
+Generar 10000 números aleatorios con una distribución normal estándar (media 0 y varianza 1).
+
+
+```R
+rand_norm <- rnorm(10000, mean = 0, sd = 1)
+```
+
+Realizar un histograma de los valores anteriores. ¿Cual es el menor y mayor valor generado?.
+
+
+```R
+hist(rand_norm)
+print(min(rand_norm))
+print(max(rand_norm))
+```
+
+    [1] -3.921918
+    [1] 3.95255
+
+
+
+![png](output_57_1.png)
+
+
+Calcular los valores de la distribución normal para 100 puntos en el intervalo anterior, utilizando las función seq() y dnorm().
+
+
+```R
+# Se crea una secuencia de elementos, de -4 a 4, de longitud 100
+# Y a cada uno de esos puntos se calcula su valor en la distribución normal
+prob_dist_norm <- dnorm(seq(from = min(rand_norm), to = max(rand_norm), length.out = 100))
+prob_dist_norm
+```
+
+
+<ol class=list-inline>
+	<li>0.000182336098199276</li>
+	<li>0.000248300084880935</li>
+	<li>0.000335995499999844</li>
+	<li>0.000451796056419557</li>
+	<li>0.000603675836610247</li>
+	<li>0.000801525846626767</li>
+	<li>0.00105750797780605</li>
+	<li>0.00138644343355894</li>
+	<li>0.00180622995322554</li>
+	<li>0.00233827887915201</li>
+	<li>0.0030079593002488</li>
+	<li>0.00384503224717931</li>
+	<li>0.00488405335016099</li>
+	<li>0.00616471770308424</li>
+	<li>0.00773211617699683</li>
+	<li>0.009636868426631</li>
+	<li>0.0119350947272928</li>
+	<li>0.0146881869999541</li>
+	<li>0.0179623393833181</li>
+	<li>0.0218278009361868</li>
+	<li>0.02635781789784</li>
+	<li>0.0316272407058114</li>
+	<li>0.0377107818439471</li>
+	<li>0.0446809245672826</li>
+	<li>0.0526054994079947</li>
+	<li>0.0615449646492804</li>
+	<li>0.0715494479447054</li>
+	<li>0.0826556279886363</li>
+	<li>0.094883556409501</li>
+	<li>0.108233539482334</li>
+	<li>0.122683215352529</li>
+	<li>0.138184973725321</li>
+	<li>0.154663869994799</li>
+	<li>0.172016183362868</li>
+	<li>0.190108757763208</li>
+	<li>0.208779244926746</li>
+	<li>0.227837340799225</li>
+	<li>0.247067070427581</li>
+	<li>0.26623013365124</li>
+	<li>0.285070276322358</li>
+	<li>0.303318601688568</li>
+	<li>0.320699686731906</li>
+	<li>0.336938321609785</li>
+	<li>0.35176664984935</li>
+	<li>0.364931455376418</li>
+	<li>0.376201322186038</li>
+	<li>0.385373385263467</li>
+	<li>0.392279398273058</li>
+	<li>0.396790864722338</li>
+	<li>0.398823014050201</li>
+	<li>0.398337450768681</li>
+	<li>0.395343360999552</li>
+	<li>0.389897223437327</li>
+	<li>0.382101037444122</li>
+	<li>0.372099145939101</li>
+	<li>0.360073791335197</li>
+	<li>0.346239595647109</li>
+	<li>0.330837198221639</li>
+	<li>0.31412631420798</li>
+	<li>0.296378492612215</li>
+	<li>0.277869854187027</li>
+	<li>0.258874077007705</li>
+	<li>0.239655872714143</li>
+	<li>0.220465161084343</li>
+	<li>0.201532107397512</li>
+	<li>0.183063138813662</li>
+	<li>0.165238005719567</li>
+	<li>0.148207904549187</li>
+	<li>0.132094632581576</li>
+	<li>0.116990704824446</li>
+	<li>0.102960329947283</li>
+	<li>0.0900411173845265</li>
+	<li>0.0782463716370063</li>
+	<li>0.0675678223427114</li>
+	<li>0.0579786392543738</li>
+	<li>0.049436588841222</li>
+	<li>0.0418872025306797</li>
+	<li>0.0352668441628257</li>
+	<li>0.0295055845363668</li>
+	<li>0.0245298125237323</li>
+	<li>0.0202645338073237</li>
+	<li>0.0166353287232002</li>
+	<li>0.0135699591178874</li>
+	<li>0.0109996299116124</li>
+	<li>0.00885992385411838</li>
+	<li>0.00709143762780961</li>
+	<li>0.00564015406840087</li>
+	<li>0.00445758906647933</li>
+	<li>0.00350075303123961</li>
+	<li>0.00273196605913853</li>
+	<li>0.00211856360653088</li>
+	<li>0.00163252596559792</li>
+	<li>0.00125006060694435</li>
+	<li>0.000951161851234883</li>
+	<li>0.000719167676404631</li>
+	<li>0.000540329000243857</li>
+	<li>0.000403402678331885</li>
+	<li>0.000299275840554298</li>
+	<li>0.000220626117840329</li>
+	<li>0.00016161980151474</li>
+</ol>
+
+
+
+Superponer los valores de la distribución normal calculados al histograma (función lines()). ¿Se aproxima el histograma a la curva calculada?
+
+
+```R
+hist(rand_norm)
+# El eje X será los 100 puntos y el eje Y los valores de la distribución (en probabilidades)
+lines(seq(min(rand_norm), max(rand_norm), length.out = 100), prob_dist_norm)
+# No se aprecian porque la escala del eje Y es de 1:2000 mientras que la del vector de probabilidades 
+# es de 0:1
+```
+
+
+![png](output_61_0.png)
+
+
+Ver el parámetro probability de la función hist y volver a generar el histograma cambiando su valor. ¿Se aproxima ahora a a la curva?.
+
+
+```R
+# Se establece el eje Y del histograma como probabilidades (de 0 a 1). El parametro probability = T
+# divide el conteo de cada una de las barras entre el número total de elementos, obteniendo así 
+# la probabilidad de cada una de las barras.
+hist(rand_norm, probability = T)
+lines(seq(min(rand_norm), max(rand_norm), length.out = 100), prob_dist_norm)
+```
+
+
+![png](output_63_0.png)
+
+
+Conseguir el mismo resultado utilizando la función curve() para representar la curva de la distribución normal.
+
+
+```R
+hist(rand_norm, probability = T)
+curve(dnorm, from = min(rand_norm), to = max(rand_norm), add = T)
+```
+
+
+![png](output_65_0.png)
+
+
+Para ver parámetros más avanzados, ir a esta referencia: http://www.statmethods.net/advgraphs/parameters.html. Se pueden realizar gráficos múltiples de la siguiente manera:
+1. Función par(), modificando las opciones:
+    * mfrow=c(n, m), crea una matriz de n × m figuras que se va rellenando por filas.
+    * mfcol=c(n, m), crea una matriz de n × m figuras que se va rellenando por columnas.
+    * fig=c(x 1 , x 2 , y 1 , y 2 ), coloca la figura dentro del rectángulo definido por las coordenadas (x 1 , y 1 ) y (x 2 , y 2 ). Estas coordenadas tienen un valor entre 0 y 1, donde (0, 0) es la esquina superior izquierda. Esta opción crea un nuevo gráfico, por lo que es necesario combinarla con new=TRUE.
+2. Función layout(m), donde m es una matriz que contiene la localización de cada figura. Las filas y columnas de la rejilla de figuras pueden tener distinto tamaño (opciones widths y heights).
+
+Se van a crear cuatro gráficos, unos cerca de otros, mostrando los valores de cuatro atributos del dataset mtcars:
+
+
+```R
+options(repr.plot.width=6, repr.plot.height=6)
+par(mfrow=c(2,2))
+plot(mtcars$mpg)
+plot(mtcars$wt)
+plot(mtcars$gear)
+plot(mtcars$hp)
+```
+
+
+![png](output_68_0.png)
+
+
+# Ejercicio #
+
+Abrir el fichero diamonds.csv en un editor de texto (Excel, WordPad, etc.) e identificar cual es el separador de las columnas y si tiene o no cabecera.
+
+
+```R
+# Tras abrirlo, se aprecia que el fichero tiene cabecera, y que su separador es la coma ",".
+```
+
+Cargar el fichero diamonds.csv en R con read.table, poniendo especial atención en los valores de los parámetros opcionales que definen la separación entre columnas y la cabecera.
+
+
+```R
+df <- read.table("diamonds.csv", header = T, sep = ",")
+```
+
+Ver cuantas filas (diamantes) y columnas (variables) tiene el conjunto de datos.
+
+
+```R
+print(ncol(df))
+print(nrow(df))
+```
+
+    [1] 11
+    [1] 53940
+
+
+Otra forma es utilizando str(), que da una representación concisa del objeto.
+
+
+```R
+str(df)
+```
+
+    'data.frame':	53940 obs. of  11 variables:
+     $ X      : int  1 2 3 4 5 6 7 8 9 10 ...
+     $ carat  : num  0.23 0.21 0.23 0.29 0.31 0.24 0.24 0.26 0.22 0.23 ...
+     $ cut    : Factor w/ 5 levels "Fair","Good",..: 3 4 2 4 2 5 5 5 1 5 ...
+     $ color  : Factor w/ 7 levels "D","E","F","G",..: 2 2 2 6 7 7 6 5 2 5 ...
+     $ clarity: Factor w/ 8 levels "I1","IF","SI1",..: 4 3 5 6 4 8 7 3 6 5 ...
+     $ depth  : num  61.5 59.8 56.9 62.4 63.3 62.8 62.3 61.9 65.1 59.4 ...
+     $ table  : num  55 61 65 58 58 57 57 55 61 61 ...
+     $ price  : int  326 326 327 334 335 336 336 337 337 338 ...
+     $ x      : num  3.95 3.89 4.05 4.2 4.34 3.94 3.95 4.07 3.87 4 ...
+     $ y      : num  3.98 3.84 4.07 4.23 4.35 3.96 3.98 4.11 3.78 4.05 ...
+     $ z      : num  2.43 2.31 2.31 2.63 2.75 2.48 2.47 2.53 2.49 2.39 ...
+
+
+Para realizar estadísticos se puede utilizar summary().
+
+
+```R
+summary(df)
+```
+
+
+           X             carat               cut        color        clarity     
+     Min.   :    1   Min.   :0.2000   Fair     : 1610   D: 6775   SI1    :13065  
+     1st Qu.:13486   1st Qu.:0.4000   Good     : 4906   E: 9797   VS2    :12258  
+     Median :26970   Median :0.7000   Ideal    :21551   F: 9542   SI2    : 9194  
+     Mean   :26970   Mean   :0.7979   Premium  :13791   G:11292   VS1    : 8171  
+     3rd Qu.:40455   3rd Qu.:1.0400   Very Good:12082   H: 8304   VVS2   : 5066  
+     Max.   :53940   Max.   :5.0100                     I: 5422   VVS1   : 3655  
+                                                        J: 2808   (Other): 2531  
+         depth           table           price             x         
+     Min.   :43.00   Min.   :43.00   Min.   :  326   Min.   : 0.000  
+     1st Qu.:61.00   1st Qu.:56.00   1st Qu.:  950   1st Qu.: 4.710  
+     Median :61.80   Median :57.00   Median : 2401   Median : 5.700  
+     Mean   :61.75   Mean   :57.46   Mean   : 3933   Mean   : 5.731  
+     3rd Qu.:62.50   3rd Qu.:59.00   3rd Qu.: 5324   3rd Qu.: 6.540  
+     Max.   :79.00   Max.   :95.00   Max.   :18823   Max.   :10.740  
+                                                                     
+           y                z         
+     Min.   : 0.000   Min.   : 0.000  
+     1st Qu.: 4.720   1st Qu.: 2.910  
+     Median : 5.710   Median : 3.530  
+     Mean   : 5.735   Mean   : 3.539  
+     3rd Qu.: 6.540   3rd Qu.: 4.040  
+     Max.   :58.900   Max.   :31.800  
+                                      
+
+
+Hacer un gráfico de barras con la cantidad de diamantes que hay para cada corte (variable cut).
+
+
+```R
+print(class(df$cut))
+# Puesto que la variable cut es un factor, al utilizar plot() se obtiene la cantidad 
+# de cada uno de los valores de esa variable
+options(repr.plot.width=6, repr.plot.height=4)
+plot(df$cut)
+```
+
+    [1] "factor"
+
+
+
+![png](output_81_1.png)
+
+
+Escoger aleatoriamente 10000 diamantes y guardarlos en un nuevo data.frame (función sample).
+
+
+```R
+idx <- sample(1:nrow(df), 10000, replace = F)
+dfNew <- df[idx,]
+dfNew[1:5 ,1:5]
+```
+
+
+<table>
+<thead><tr><th></th><th scope=col>X</th><th scope=col>carat</th><th scope=col>cut</th><th scope=col>color</th><th scope=col>clarity</th></tr></thead>
+<tbody>
+	<tr><th scope=row>39820</th><td>39820</td><td>0.38 </td><td>Ideal</td><td>E    </td><td>VS1  </td></tr>
+	<tr><th scope=row>43257</th><td>43257  </td><td>0.42   </td><td>Premium</td><td>G      </td><td>IF     </td></tr>
+	<tr><th scope=row>25985</th><td>25985  </td><td>1.62   </td><td>Premium</td><td>G      </td><td>VS1    </td></tr>
+	<tr><th scope=row>29665</th><td>29665</td><td>0.35 </td><td>Ideal</td><td>F    </td><td>VS2  </td></tr>
+	<tr><th scope=row>6982</th><td>6982   </td><td>1.03   </td><td>Premium</td><td>H      </td><td>SI2    </td></tr>
+</tbody>
+</table>
+
+
+
+La correlación mide la fuerza de una relación lineal entre dos variables. Toma valores entre 0 y ±1, donde 0 es poca dependencia y 1 máxima dependencia (el signo indica la dirección). En R se calcula con la función cor. Sabiendo lo anterior y sobre la muestra reducida de 10000 diamantes:
+
+Extraer como vectores los valores de las variables precio y quilate (price y carat).
+
+
+```R
+vect_precio <- dfNew$price
+vect_quilates <- dfNew$carat
+```
+
+Calcular la media y mediana del precio.
+
+
+```R
+print(mean(vect_precio))
+print(median(vect_precio))
+```
+
+    [1] 4021.023
+    [1] 2496
+
+
+Hacer un histograma para visualizar la distribución de los precios.
+
+
+```R
+hist(vect_precio)
+```
+
+
+![png](output_89_0.png)
+
+
+Calcular la correlación de las variables anteriores.
+
+
+```R
+print(cor(vect_quilates, vect_precio))
+```
+
+    [1] 0.9212633
+
+
+Visualizar dicha correlación haciendo un gráfico de dispersión del precio sobre los quilates.
+
+
+```R
+options(repr.plot.width=6, repr.plot.height=6)
+plot(vect_quilates, vect_precio)
+```
+
+
+![png](output_93_0.png)
+
